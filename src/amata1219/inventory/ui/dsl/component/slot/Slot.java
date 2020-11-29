@@ -9,8 +9,12 @@ import java.util.function.Consumer;
 
 public class Slot {
 
-    public Consumer<Icon> iconSettings = Constants.noOperation();
-    public Consumer<InventoryUIClickEvent> actionOnClick = Constants.noOperation();
+    private Consumer<Icon> iconSettings = Constants.noOperation();
+    private Consumer<InventoryUIClickEvent> actionOnClick = Constants.noOperation();
+
+    public void icon(Consumer<Icon> settings) {
+        iconSettings = settings;
+    }
 
     public Consumer<InventoryUIClickEvent>  actionOnClick() {
         return actionOnClick;

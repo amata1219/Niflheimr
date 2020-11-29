@@ -41,7 +41,12 @@ public class InventoryLayout implements InventoryHolder {
         Inventory inventory = createInventory(format.type, format.size, title);
         currentIcons.clear();
         for (int i = 0; i < inventory.getSize(); i++) {
-            Icon icon = slotAt(i).buildIcon();
+            Slot slot;
+            if (slots.containsKey(i)) slot = slots.get(i);
+            else if (animatedSlots.containsKey(i)) slot = animatedSlots.get(i);
+            else slot = defaultSlot.get();
+
+            Icon icon = slot.buildIcon();
             currentIcons.put(i, icon);
             inventory.setItem(i, icon.toItemStack());
         }
@@ -63,10 +68,6 @@ public class InventoryLayout implements InventoryHolder {
             settings.accept(slot);
             return slot;
         };
-    }
-
-    public Slot slotAt(int index) {
-        return slots.containsKey(index) ? slots.get(index) : defaultSlot.get();
     }
 
     public void putSlot(Consumer<Slot> settings, int... indexes) {
