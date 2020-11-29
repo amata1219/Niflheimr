@@ -1,7 +1,7 @@
-package amata1219.inventory.ui;
+package amata1219.niflheimr;
 
-import amata1219.inventory.ui.enchantment.GleamEnchantment;
-import amata1219.inventory.ui.listener.InventoryOperationListener;
+import amata1219.niflheimr.enchantment.GleamEnchantment;
+import amata1219.niflheimr.listener.InventoryOperationListener;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.event.HandlerList;
 import org.bukkit.plugin.java.JavaPlugin;

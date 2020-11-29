@@ -1,8 +1,8 @@
-package amata1219.inventory.ui.dsl;
+package amata1219.niflheimr.dsl;
 
-import amata1219.inventory.ui.dsl.component.InventoryFormat;
-import amata1219.inventory.ui.dsl.component.InventoryLayout;
-import amata1219.inventory.ui.dsl.component.InventoryLines;
+import amata1219.niflheimr.dsl.component.InventoryFormat;
+import amata1219.niflheimr.dsl.component.InventoryLayout;
+import amata1219.niflheimr.dsl.component.InventoryLines;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryType;
 

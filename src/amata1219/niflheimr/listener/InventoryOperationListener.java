@@ -1,9 +1,9 @@
-package amata1219.inventory.ui.listener;
+package amata1219.niflheimr.listener;
 
-import amata1219.inventory.ui.dsl.component.InventoryLayout;
-import amata1219.inventory.ui.event.InventoryUIClickEvent;
-import amata1219.inventory.ui.event.InventoryUICloseEvent;
-import amata1219.inventory.ui.event.InventoryUIOpenEvent;
+import amata1219.niflheimr.dsl.component.InventoryLayout;
+import amata1219.niflheimr.event.InventoryUIClickEvent;
+import amata1219.niflheimr.event.InventoryUICloseEvent;
+import amata1219.niflheimr.event.InventoryUIOpenEvent;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;

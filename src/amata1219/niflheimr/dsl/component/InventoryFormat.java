@@ -1,4 +1,4 @@
-package amata1219.inventory.ui.dsl.component;
+package amata1219.niflheimr.dsl.component;
 
 import org.bukkit.event.inventory.InventoryType;
 

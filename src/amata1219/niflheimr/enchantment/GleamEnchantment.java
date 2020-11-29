@@ -1,4 +1,4 @@
-package amata1219.inventory.ui.enchantment;
+package amata1219.niflheimr.enchantment;
 
 import org.bukkit.NamespacedKey;
 import org.bukkit.enchantments.Enchantment;

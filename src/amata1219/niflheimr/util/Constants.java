@@ -1,4 +1,4 @@
-package amata1219.inventory.ui.util;
+package amata1219.niflheimr.util;
 
 import java.util.function.Consumer;
 

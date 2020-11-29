@@ -1,11 +1,11 @@
-package amata1219.inventory.ui.dsl.component;
+package amata1219.niflheimr.dsl.component;
 
-import amata1219.inventory.ui.dsl.component.slot.AnimatedSlot;
-import amata1219.inventory.ui.dsl.component.slot.Slot;
-import amata1219.inventory.ui.event.InventoryUIClickEvent;
-import amata1219.inventory.ui.event.InventoryUICloseEvent;
-import amata1219.inventory.ui.event.InventoryUIOpenEvent;
-import amata1219.inventory.ui.util.Constants;
+import amata1219.niflheimr.dsl.component.slot.AnimatedSlot;
+import amata1219.niflheimr.dsl.component.slot.Slot;
+import amata1219.niflheimr.event.InventoryUIClickEvent;
+import amata1219.niflheimr.event.InventoryUICloseEvent;
+import amata1219.niflheimr.event.InventoryUIOpenEvent;
+import amata1219.niflheimr.util.Constants;
 import org.bukkit.Bukkit;
 import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.Inventory;

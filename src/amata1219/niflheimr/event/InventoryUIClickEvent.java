@@ -1,4 +1,4 @@
-package amata1219.inventory.ui.event;
+package amata1219.niflheimr.event;
 
 import org.bukkit.event.inventory.ClickType;
 import org.bukkit.event.inventory.InventoryAction;

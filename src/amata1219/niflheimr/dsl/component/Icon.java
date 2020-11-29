@@ -1,7 +1,7 @@
-package amata1219.inventory.ui.dsl.component;
+package amata1219.niflheimr.dsl.component;
 
-import amata1219.inventory.ui.enchantment.GleamEnchantment;
-import amata1219.inventory.ui.util.Constants;
+import amata1219.niflheimr.enchantment.GleamEnchantment;
+import amata1219.niflheimr.util.Constants;
 import com.google.common.collect.Iterables;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
