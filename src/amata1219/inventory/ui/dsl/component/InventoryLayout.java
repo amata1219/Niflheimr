@@ -6,109 +6,136 @@ import amata1219.inventory.ui.event.InventoryUIClickEvent;
 import amata1219.inventory.ui.event.InventoryUICloseEvent;
 import amata1219.inventory.ui.event.InventoryUIOpenEvent;
 import amata1219.inventory.ui.util.Constants;
+import org.bukkit.Bukkit;
+import org.bukkit.event.inventory.InventoryType;
+import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.InventoryHolder;
 
 import java.util.HashMap;
+import java.util.Optional;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
+import java.util.stream.IntStream;
 
-public class InventoryLayout {
+public class InventoryLayout implements InventoryHolder {
 
     public final InventoryFormat format;
     public String title;
+    private Supplier<Slot> defaultSlot = Slot::new;
     private final HashMap<Integer, Slot> slots = new HashMap<>();
     private final HashMap<Integer, AnimatedSlot> animatedSlots = new HashMap<>();
-    private final Supplier<Slot> defaultSlot = () -> new Slot(Constants.noOperation());
+    private final HashMap<Integer, Icon> currentIcons = new HashMap<>();
     private Consumer<InventoryUIClickEvent> actionOnClick = Constants.noOperation();
     private Consumer<InventoryUIOpenEvent> actionOnOpen = Constants.noOperation();
     private Consumer<InventoryUICloseEvent> actionOnClose = Constants.noOperation();
 
-    /*
-	private final ArrayList<AsyncTask> activeTasks = new ArrayList<>();
+    public InventoryLayout(InventoryFormat format) {
+        this.format = format;
+    }
 
-	public Layout(Option option){
-		this.option = option;
-	}
+    @Override
+    public Inventory getInventory() {
+        return null;
+    }
 
-	@Override
-	public Inventory getInventory() {
-		return null;
-	}
+    public Inventory buildInventory(){
+        Inventory inventory = createInventory(format.type, format.size, title);
+        currentIcons.clear();
+        for (int i = 0; i < inventory.getSize(); i++) {
+            Icon icon = slotAt(i).buildIcon();
+            currentIcons.put(i, icon);
+            inventory.setItem(i, icon.toItemStack());
+        }
+        return inventory;
+    }
 
-	public Inventory buildInventory(){
-		Inventory inventory = createInventory(option.type, option.size, title);
-		IntStream.range(0, inventory.getSize()).forEach(index -> inventory.setItem(index, slotAt(index).build().toItemStack()));
-		return inventory;
-	}
+    private Inventory createInventory(InventoryType type, int size, String title) {
+        if(type != null)
+            if(title != null) return Bukkit.createInventory(this, type, title);
+            else return Bukkit.createInventory(this, type);
+        else
+        if(title != null) return Bukkit.createInventory(this, size, title);
+        else return Bukkit.createInventory(this, size);
+    }
 
-	private Inventory createInventory(InventoryType type, int size, String title){
-		if(type != null)
-			if(title != null) return Bukkit.createInventory(this, type, title);
-			else return Bukkit.createInventory(this, type);
-		else
-			if(title != null) return Bukkit.createInventory(this, size, title);
-			else return Bukkit.createInventory(this, size);
-	}
+    public void defaultSlot(Consumer<Slot> settings) {
+        defaultSlot = () -> {
+            Slot slot = new Slot();
+            settings.accept(slot);
+            return slot;
+        };
+    }
 
-	public Slot slotAt(int index){
-		return slots.containsKey(index) ? slots.get(index) : defaultSlot.get();
-	}
+    public Slot slotAt(int index) {
+        return slots.containsKey(index) ? slots.get(index) : defaultSlot.get();
+    }
 
-	public void put(Effect<Slot> effect, IntStream indexes){
-		put(effect, indexes.toArray());
-	}
+    public void putSlot(Consumer<Slot> settings, int... indexes) {
+        for (int index : indexes) {
+            Slot slot = new Slot();
+            settings.accept(slot);
+            slots.put(index, slot);
+        }
+    }
 
-	public void put(Effect<Slot> effect, int... indexes){
-		Arrays.stream(indexes).forEach(index -> slots.put(index, effect.apply(new Slot())));
-	}
+    public void putSlot(Consumer<Slot> settings, IntStream indexes) {
+        putSlot(settings, indexes.toArray());
+    }
 
-	public void put(int interval, Effect<AnimatedSlot> effect, IntStream indexes){
-		put(interval, effect, indexes.toArray());
-	}
+    public AnimatedSlot animatedSlotAt(int index) {
+        return animatedSlots.get(index);
+    }
 
-	public void put(int interval, Effect<AnimatedSlot> effect, int... indexes){
-		Arrays.stream(indexes).forEach(index -> slots.put(index, effect.apply(new AnimatedSlot(interval))));
-	}
+    public void putAnimatedSlot(Consumer<AnimatedSlot> settings, int... indexes) {
+        for (int index : indexes) {
+            AnimatedSlot slot = new AnimatedSlot();
+            settings.accept(slot);
+            animatedSlots.put(index, slot);
+        }
+    }
 
-	public void defaultSlot(Effect<Slot> effect){
-		defaultSlot = () -> effect.apply(new Slot());
-	}
+    public void putAnimatedSlot(Consumer<AnimatedSlot> settings, IntStream indexes) {
+        putAnimatedSlot(settings, indexes.toArray());
+    }
 
-	public void defaultSlot(int interval, Effect<AnimatedSlot> effect){
-		defaultSlot = () -> effect.apply(new AnimatedSlot(interval));
-	}
+    public void onClick(Consumer<InventoryUIClickEvent> actionOnClick) {
+        this.actionOnClick = event -> {
+            actionOnClick.accept(event);
 
-	public void onOpen(Consumer<OpenEvent> action){
-		actionOnOpen = action;
-	}
+            for (AnimatedSlot slot : animatedSlots.values())
+                slot.actionOnClick().ifPresent(handler -> handler.accept(event));
 
-	public void fire(OpenEvent event){
-		slots.entrySet().stream()
-		.filter(entry -> entry.getValue() instanceof AnimatedSlot)
-		.map(entry -> ((AnimatedSlot) entry.getValue()).createTask(event.inventory, entry.getKey()))
-		.forEach(tuple -> {
-			tuple.first.executeTimer(tuple.second, 0);
-			activeTasks.add(tuple.first);
-		});
-		actionOnOpen.accept(event);
-	}
+            for (Icon icon : currentIcons.values())
+                icon.actionOnClick().ifPresent(handler -> handler.accept(event.current));
+        };
+    }
 
-	public void onClick(Consumer<ClickEvent> action){
-		actionOnClick = action;
-	}
+    public Optional<Consumer<InventoryUIClickEvent>> actionOnClick() {
+        return Optional.ofNullable(actionOnClick);
+    }
 
-	public void fire(ClickEvent event){
-		actionOnClick.accept(event);
-	}
+    public void onOpen(Consumer<InventoryUIOpenEvent> actionOnOpen) {
+        this.actionOnOpen = event -> {
+            actionOnOpen.accept(event);
+            for (AnimatedSlot slot : animatedSlots.values())
+                slot.actionOnOpen().ifPresent(handler -> handler.accept(event));
+        };
+    }
 
-	public void onClose(Consumer<CloseEvent> action){
-		actionOnClose = action;
-	}
+    public Optional<Consumer<InventoryUIOpenEvent>> actionOnOpen() {
+        return Optional.ofNullable(actionOnOpen);
+    }
 
-	public void fire(CloseEvent event){
-		actionOnClose.accept(event);
-		activeTasks.forEach(AsyncTask::cancel);
-	}
+    public void onClose(Consumer<InventoryUICloseEvent> actionOnClose) {
+        this.actionOnClose = event -> {
+            actionOnClose.accept(event);
+            for (AnimatedSlot slot : animatedSlots.values())
+                slot.actionOnClose().ifPresent(handler -> handler.accept(event));
+        };
+    }
 
-     */
+    public Optional<Consumer<InventoryUICloseEvent>> actionOnClose() {
+        return Optional.ofNullable(actionOnClose);
+    }
 
 }

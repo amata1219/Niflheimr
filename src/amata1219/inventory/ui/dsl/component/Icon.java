@@ -22,7 +22,7 @@ public class Icon {
     public List<String> lore = new ArrayList<>();
     public Map<Enchantment, Integer> enchantments = new HashMap<>();
     public Set<ItemFlag> flags = new HashSet<>();
-    public Consumer<ItemStack> raw, actionOnClick;
+    private Consumer<ItemStack> raw, actionOnClick;
 
     public void setLore(String... lines){
         lore.addAll(Arrays.asList(lines));
@@ -38,6 +38,18 @@ public class Icon {
 
     public void setItemFlags(ItemFlag... flags){
         this.flags.addAll(Arrays.asList(flags));
+    }
+
+    public void raw(Consumer<ItemStack> settings) {
+        raw = settings;
+    }
+
+    public void onClick(Consumer<ItemStack> actionOnClick) {
+        this.actionOnClick = actionOnClick;
+    }
+
+    public Optional<Consumer<ItemStack>> actionOnClick() {
+        return Optional.ofNullable(actionOnClick);
     }
 
     public void apply(ItemStack item) {
