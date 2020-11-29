@@ -17,6 +17,7 @@ public interface InventoryUI {
     }
 
     default void openInventory(Player player) {
+        player.openInventory(layout(player).buildInventory());
     }
 
 }

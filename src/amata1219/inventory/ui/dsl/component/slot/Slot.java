@@ -12,12 +12,12 @@ public class Slot {
     public Consumer<Icon> iconSettings = Constants.noOperation();
     public Consumer<InventoryUIClickEvent> actionOnClick = Constants.noOperation();
 
-    public void onClick(Consumer<InventoryUIClickEvent> actionOnClick) {
-        this.actionOnClick = actionOnClick;
+    public Consumer<InventoryUIClickEvent>  actionOnClick() {
+        return actionOnClick;
     }
 
-    public Optional<Consumer<InventoryUIClickEvent>> actionOnClick() {
-        return Optional.ofNullable(actionOnClick);
+    public void onClick(Consumer<InventoryUIClickEvent> actionOnClick) {
+        this.actionOnClick = actionOnClick;
     }
 
     public Icon buildIcon() {

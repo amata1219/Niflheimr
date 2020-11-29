@@ -1,6 +1,7 @@
 package amata1219.inventory.ui;
 
 import amata1219.inventory.ui.enchantment.GleamEnchantment;
+import amata1219.inventory.ui.listener.InventoryOperationListener;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.event.HandlerList;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -13,7 +14,7 @@ public class Main extends JavaPlugin {
 
     @Override
     public void onEnable() {
-        Field acceptingNew = null;
+        Field acceptingNew;
         try {
             acceptingNew = Enchantment.class.getDeclaredField("acceptingNew");
             acceptingNew.setAccessible(true);
@@ -25,6 +26,7 @@ public class Main extends JavaPlugin {
             e.printStackTrace();
         }
 
+        getServer().getPluginManager().registerEvents(new InventoryOperationListener(), this);
     }
 
     @Override

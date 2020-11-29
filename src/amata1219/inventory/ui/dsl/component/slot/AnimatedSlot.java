@@ -20,20 +20,20 @@ public class AnimatedSlot extends Slot {
         return this;
     }
 
+    public Consumer<InventoryUIOpenEvent>  actionOnOpen() {
+        return actionOnOpen;
+    }
+
     public void onOpen(Consumer<InventoryUIOpenEvent> actionOnOpen) {
         this.actionOnOpen = actionOnOpen;
     }
 
-    public Optional<Consumer<InventoryUIOpenEvent>> actionOnOpen() {
-        return Optional.ofNullable(actionOnOpen);
+    public Consumer<InventoryUICloseEvent>  actionOnClose() {
+        return actionOnClose;
     }
 
     public void oClose(Consumer<InventoryUICloseEvent> actionOnClose) {
         this.actionOnClose = actionOnClose;
-    }
-
-    public Optional<Consumer<InventoryUICloseEvent>> actionOnClose() {
-        return Optional.ofNullable(actionOnClose);
     }
 
 }

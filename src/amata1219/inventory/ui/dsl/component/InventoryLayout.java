@@ -12,7 +12,6 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
 
 import java.util.HashMap;
-import java.util.Optional;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 import java.util.stream.IntStream;
@@ -98,44 +97,44 @@ public class InventoryLayout implements InventoryHolder {
         putAnimatedSlot(settings, indexes.toArray());
     }
 
+    public Consumer<InventoryUIClickEvent>  actionOnClick() {
+        return actionOnClick;
+    }
+
     public void onClick(Consumer<InventoryUIClickEvent> actionOnClick) {
         this.actionOnClick = event -> {
             actionOnClick.accept(event);
 
             for (AnimatedSlot slot : animatedSlots.values())
-                slot.actionOnClick().ifPresent(handler -> handler.accept(event));
+                slot.actionOnClick().accept(event);
 
             for (Icon icon : currentIcons.values())
-                icon.actionOnClick().ifPresent(handler -> handler.accept(event.current));
+                icon.actionOnClick().accept(event.current);
         };
     }
 
-    public Optional<Consumer<InventoryUIClickEvent>> actionOnClick() {
-        return Optional.ofNullable(actionOnClick);
+    public Consumer<InventoryUIOpenEvent>  actionOnOpen() {
+        return actionOnOpen;
     }
 
     public void onOpen(Consumer<InventoryUIOpenEvent> actionOnOpen) {
         this.actionOnOpen = event -> {
             actionOnOpen.accept(event);
             for (AnimatedSlot slot : animatedSlots.values())
-                slot.actionOnOpen().ifPresent(handler -> handler.accept(event));
+                slot.actionOnOpen().accept(event);
         };
     }
 
-    public Optional<Consumer<InventoryUIOpenEvent>> actionOnOpen() {
-        return Optional.ofNullable(actionOnOpen);
+    public Consumer<InventoryUICloseEvent>  actionOnClose() {
+        return actionOnClose;
     }
 
     public void onClose(Consumer<InventoryUICloseEvent> actionOnClose) {
         this.actionOnClose = event -> {
             actionOnClose.accept(event);
             for (AnimatedSlot slot : animatedSlots.values())
-                slot.actionOnClose().ifPresent(handler -> handler.accept(event));
+                slot.actionOnClose().accept(event);
         };
-    }
-
-    public Optional<Consumer<InventoryUICloseEvent>> actionOnClose() {
-        return Optional.ofNullable(actionOnClose);
     }
 
 }
