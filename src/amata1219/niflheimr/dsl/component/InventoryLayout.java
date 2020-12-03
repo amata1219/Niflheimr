@@ -70,6 +70,10 @@ public class InventoryLayout implements InventoryHolder {
         };
     }
 
+    public Slot slotAt(int index) {
+        return slots.getOrDefault(index, animatedSlots.containsKey(index) ? animatedSlots.get(index) : defaultSlot.get());
+    }
+
     public void putSlot(Consumer<Slot> settings, int... indexes) {
         for (int index : indexes) {
             Slot slot = new Slot();
@@ -80,10 +84,6 @@ public class InventoryLayout implements InventoryHolder {
 
     public void putSlot(Consumer<Slot> settings, IntStream indexes) {
         putSlot(settings, indexes.toArray());
-    }
-
-    public AnimatedSlot animatedSlotAt(int index) {
-        return animatedSlots.get(index);
     }
 
     public void putAnimatedSlot(Consumer<AnimatedSlot> settings, int... indexes) {
@@ -106,11 +106,11 @@ public class InventoryLayout implements InventoryHolder {
         this.actionOnClick = event -> {
             actionOnClick.accept(event);
 
-            for (AnimatedSlot slot : animatedSlots.values())
-                slot.actionOnClick().accept(event);
+            Icon currentIcon = currentIcons.get(event.clickedSlot);
+            if (currentIcon != null) currentIcon.actionOnClick().accept(event.current);
 
-            for (Icon icon : currentIcons.values())
-                icon.actionOnClick().accept(event.current);
+            Slot currentSlot = slotAt(event.clickedSlot);
+            if (currentSlot != null) currentSlot.actionOnClick().accept(event);
         };
     }
 
@@ -121,8 +121,7 @@ public class InventoryLayout implements InventoryHolder {
     public void onOpen(Consumer<InventoryUIOpenEvent> actionOnOpen) {
         this.actionOnOpen = event -> {
             actionOnOpen.accept(event);
-            for (AnimatedSlot slot : animatedSlots.values())
-                slot.actionOnOpen().accept(event);
+            for (AnimatedSlot slot : animatedSlots.values()) slot.actionOnOpen().accept(event);
         };
     }
 
@@ -133,8 +132,7 @@ public class InventoryLayout implements InventoryHolder {
     public void onClose(Consumer<InventoryUICloseEvent> actionOnClose) {
         this.actionOnClose = event -> {
             actionOnClose.accept(event);
-            for (AnimatedSlot slot : animatedSlots.values())
-                slot.actionOnClose().accept(event);
+            for (AnimatedSlot slot : animatedSlots.values()) slot.actionOnClose().accept(event);
         };
     }
 

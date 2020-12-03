@@ -8,6 +8,7 @@ import java.util.function.Consumer;
 
 public class Slot {
 
+    public boolean editable = false;
     private Consumer<Icon> iconSettings = Constants.noOperation();
     private Consumer<InventoryUIClickEvent> actionOnClick = Constants.noOperation();
 
