@@ -1,13 +1,12 @@
 package amata1219.niflheimr.dsl.component;
 
+import amata1219.niflheimr.dsl.component.format.InventoryFormat;
 import amata1219.niflheimr.dsl.component.slot.AnimatedSlot;
 import amata1219.niflheimr.dsl.component.slot.Slot;
 import amata1219.niflheimr.event.InventoryUIClickEvent;
 import amata1219.niflheimr.event.InventoryUICloseEvent;
 import amata1219.niflheimr.event.InventoryUIOpenEvent;
 import amata1219.niflheimr.util.Constants;
-import org.bukkit.Bukkit;
-import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
 
@@ -34,11 +33,11 @@ public class InventoryLayout implements InventoryHolder {
 
     @Override
     public Inventory getInventory() {
-        return null;
+        throw new UnsupportedOperationException("Please call InventoryLayout#buildInventory() instead.");
     }
 
     public Inventory buildInventory(){
-        Inventory inventory = createInventory(format.type, format.size, title);
+        Inventory inventory = title == null ? format.createInventoryWith(this) : format.createInventoryWith(this, title);
         currentIcons.clear();
         for (int i = 0; i < inventory.getSize(); i++) {
             Slot slot;
@@ -51,15 +50,6 @@ public class InventoryLayout implements InventoryHolder {
             inventory.setItem(i, icon.toItemStack());
         }
         return inventory;
-    }
-
-    private Inventory createInventory(InventoryType type, int size, String title) {
-        if(type != null)
-            if(title != null) return Bukkit.createInventory(this, type, title);
-            else return Bukkit.createInventory(this, type);
-        else
-        if(title != null) return Bukkit.createInventory(this, size, title);
-        else return Bukkit.createInventory(this, size);
     }
 
     public void defaultSlot(Consumer<Slot> settings) {

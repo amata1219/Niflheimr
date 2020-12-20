@@ -1,11 +1,11 @@
 package amata1219.niflheimr.dsl;
 
 import amata1219.niflheimr.Niflheimr;
-import amata1219.niflheimr.dsl.component.InventoryFormat;
+import amata1219.niflheimr.dsl.component.format.InventoryFormat;
 import amata1219.niflheimr.dsl.component.InventoryLayout;
-import amata1219.niflheimr.dsl.component.InventoryLines;
+import amata1219.niflheimr.dsl.component.format.InventoryLines;
+import amata1219.niflheimr.dsl.component.format.InventoryType;
 import org.bukkit.entity.Player;
-import org.bukkit.event.inventory.InventoryType;
 
 import java.util.function.Consumer;
 
@@ -20,11 +20,11 @@ public interface InventoryUI {
     }
 
     default InventoryLayout build(InventoryLines lines, Consumer<InventoryLayout> settings) {
-        return build(lines.format, settings);
+        return build(lines, settings);
     }
 
-    default InventoryLayout build(InventoryType type, Consumer<InventoryLayout> settings) {
-        return build(new InventoryFormat(type), settings);
+    default InventoryLayout build(org.bukkit.event.inventory.InventoryType type, Consumer<InventoryLayout> settings) {
+        return build(new InventoryType(type), settings);
     }
 
     default void openInventory(Player player) {
