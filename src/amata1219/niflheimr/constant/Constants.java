@@ -1,4 +1,4 @@
-package amata1219.niflheimr.util;
+package amata1219.niflheimr.constant;
 
 import java.util.function.Consumer;
 

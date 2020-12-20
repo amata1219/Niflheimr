@@ -3,7 +3,7 @@ package amata1219.niflheimr.dsl.component.slot;
 import amata1219.niflheimr.dsl.component.Icon;
 import amata1219.niflheimr.event.InventoryUICloseEvent;
 import amata1219.niflheimr.event.InventoryUIOpenEvent;
-import amata1219.niflheimr.util.Constants;
+import amata1219.niflheimr.constant.Constants;
 
 import java.util.ArrayList;
 import java.util.function.Consumer;

@@ -6,7 +6,7 @@ import amata1219.niflheimr.dsl.component.slot.Slot;
 import amata1219.niflheimr.event.InventoryUIClickEvent;
 import amata1219.niflheimr.event.InventoryUICloseEvent;
 import amata1219.niflheimr.event.InventoryUIOpenEvent;
-import amata1219.niflheimr.util.Constants;
+import amata1219.niflheimr.constant.Constants;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
 
