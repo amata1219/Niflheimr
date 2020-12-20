@@ -20,9 +20,9 @@ public class InventoryLayout implements InventoryHolder {
     public final InventoryFormat format;
     public String title;
     private Supplier<Slot> defaultSlot = Slot::new;
-    private final HashMap<Integer, Slot> slots = new HashMap<>();
-    private final HashMap<Integer, AnimatedSlot> animatedSlots = new HashMap<>();
-    private final HashMap<Integer, Icon> currentIcons = new HashMap<>();
+    public final HashMap<Integer, Slot> slots = new HashMap<>();
+    public final HashMap<Integer, AnimatedSlot> animatedSlots = new HashMap<>();
+    public final HashMap<Integer, Icon> currentIcons = new HashMap<>();
     private Consumer<InventoryUIClickEvent> actionOnClick = Constants.noOperation();
     private Consumer<InventoryUIOpenEvent> actionOnOpen = Constants.noOperation();
     private Consumer<InventoryUICloseEvent> actionOnClose = Constants.noOperation();
@@ -33,7 +33,7 @@ public class InventoryLayout implements InventoryHolder {
 
     @Override
     public Inventory getInventory() {
-        throw new UnsupportedOperationException("Please call InventoryLayout#buildInventory() instead.");
+        throw new UnsupportedOperationException("Call InventoryLayout#buildInventory() instead.");
     }
 
     public Inventory buildInventory(){

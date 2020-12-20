@@ -20,6 +20,7 @@ public class InventoryUIClickEvent {
     public final ItemStack cursor;
     public final int hotbarButton;
     public final InventoryView view;
+    public boolean shouldCancel;
 
     public InventoryUIClickEvent(InventoryClickEvent event){
         inventory = event.getClickedInventory();
