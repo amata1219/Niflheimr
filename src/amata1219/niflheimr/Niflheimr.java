@@ -8,9 +8,9 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import java.lang.reflect.Field;
 
-public class Main extends JavaPlugin {
+public class Niflheimr extends JavaPlugin {
 
-    private static Main instance;
+    private static Niflheimr instance;
 
     @Override
     public void onEnable() {
@@ -34,7 +34,7 @@ public class Main extends JavaPlugin {
         HandlerList.unregisterAll(this);
     }
 
-    public static Main instance() {
+    public static Niflheimr instance() {
         return instance;
     }
 }
