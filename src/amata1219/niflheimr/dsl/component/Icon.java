@@ -25,19 +25,19 @@ public class Icon {
     public Set<ItemFlag> flags = new HashSet<>();
     private Consumer<ItemStack> raw = Constants.noOperation(), actionOnClick = Constants.noOperation();
 
-    public void setLore(String... lines){
+    public void lore(String... lines){
         lore.addAll(Arrays.asList(lines));
     }
 
-    public void setEnchantment(Enchantment enchantment, int level){
+    public void enchant(Enchantment enchantment, int level){
         enchantments.put(enchantment, level);
     }
 
     public void gleam(){
-        setEnchantment(GleamEnchantment.INSTANCE, 1);
+        enchant(GleamEnchantment.INSTANCE, 1);
     }
 
-    public void setItemFlags(ItemFlag... flags){
+    public void itemFlags(ItemFlag... flags){
         this.flags.addAll(Arrays.asList(flags));
     }
 

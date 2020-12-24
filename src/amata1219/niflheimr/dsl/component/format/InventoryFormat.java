@@ -1,7 +1,6 @@
 package amata1219.niflheimr.dsl.component.format;
 
-import amata1219.niflheimr.dsl.component.InventoryLayout;
-import org.bukkit.event.inventory.InventoryType;
+import amata1219.niflheimr.dsl.InventoryLayout;
 import org.bukkit.inventory.Inventory;
 
 public interface InventoryFormat {

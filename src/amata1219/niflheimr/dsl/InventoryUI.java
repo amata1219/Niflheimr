@@ -2,7 +2,6 @@ package amata1219.niflheimr.dsl;
 
 import amata1219.niflheimr.Niflheimr;
 import amata1219.niflheimr.dsl.component.format.InventoryFormat;
-import amata1219.niflheimr.dsl.component.InventoryLayout;
 import amata1219.niflheimr.dsl.component.format.InventoryLines;
 import amata1219.niflheimr.dsl.component.format.InventoryType;
 import org.bukkit.entity.Player;
@@ -11,7 +10,7 @@ import java.util.function.Consumer;
 
 public interface InventoryUI {
 
-    InventoryLayout layout(Player holder);
+    InventoryLayout layout(Player viewer);
 
     default InventoryLayout build(InventoryFormat format, Consumer<InventoryLayout> settings) {
         InventoryLayout layout = new InventoryLayout(format);
@@ -20,7 +19,7 @@ public interface InventoryUI {
     }
 
     default InventoryLayout build(InventoryLines lines, Consumer<InventoryLayout> settings) {
-        return build(lines, settings);
+        return build((InventoryFormat) lines, settings);
     }
 
     default InventoryLayout build(org.bukkit.event.inventory.InventoryType type, Consumer<InventoryLayout> settings) {

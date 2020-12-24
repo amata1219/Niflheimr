@@ -1,7 +1,6 @@
-package amata1219.niflheimr.listener;
+package amata1219.niflheimr.dsl;
 
 import amata1219.niflheimr.dsl.component.Icon;
-import amata1219.niflheimr.dsl.component.InventoryLayout;
 import amata1219.niflheimr.dsl.component.slot.AnimatedSlot;
 import amata1219.niflheimr.dsl.component.slot.Slot;
 import amata1219.niflheimr.event.InventoryUIClickEvent;

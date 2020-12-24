@@ -1,5 +1,6 @@
-package amata1219.niflheimr.dsl.component;
+package amata1219.niflheimr.dsl;
 
+import amata1219.niflheimr.dsl.component.Icon;
 import amata1219.niflheimr.dsl.component.format.InventoryFormat;
 import amata1219.niflheimr.dsl.component.slot.AnimatedSlot;
 import amata1219.niflheimr.dsl.component.slot.Slot;
@@ -20,9 +21,9 @@ public class InventoryLayout implements InventoryHolder {
     public final InventoryFormat format;
     public String title;
     private Supplier<Slot> defaultSlot = Slot::new;
-    public final HashMap<Integer, Slot> slots = new HashMap<>();
-    public final HashMap<Integer, AnimatedSlot> animatedSlots = new HashMap<>();
-    public final HashMap<Integer, Icon> currentIcons = new HashMap<>();
+    final HashMap<Integer, Slot> slots = new HashMap<>();
+    final HashMap<Integer, AnimatedSlot> animatedSlots = new HashMap<>();
+    final HashMap<Integer, Icon> currentIcons = new HashMap<>();
     private Consumer<InventoryUIClickEvent> actionOnClick = Constants.noOperation();
     private Consumer<InventoryUIOpenEvent> actionOnOpen = Constants.noOperation();
     private Consumer<InventoryUICloseEvent> actionOnClose = Constants.noOperation();
@@ -60,7 +61,7 @@ public class InventoryLayout implements InventoryHolder {
         };
     }
 
-    public Slot slotAt(int index) {
+    Slot slotAt(int index) {
         return slots.getOrDefault(index, animatedSlots.containsKey(index) ? animatedSlots.get(index) : defaultSlot.get());
     }
 
