@@ -14,6 +14,8 @@ public class Niflheimr extends JavaPlugin {
 
     @Override
     public void onEnable() {
+        instance = this;
+
         Field acceptingNew;
         try {
             acceptingNew = Enchantment.class.getDeclaredField("acceptingNew");
