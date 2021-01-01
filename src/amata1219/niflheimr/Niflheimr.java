@@ -25,7 +25,7 @@ public class Niflheimr extends JavaPlugin {
             acceptingNew.set(null, false);
             acceptingNew.setAccessible(false);
         } catch (NoSuchFieldException | IllegalAccessException e) {
-            e.printStackTrace();
+
         }
 
         getServer().getPluginManager().registerEvents(new InventoryOperationListener(), this);
