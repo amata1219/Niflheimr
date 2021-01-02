@@ -1,6 +1,6 @@
 ### 使用法
 pluginsフォルダに本プラグインを導入して下さい。<br>
-また、本プラグインをライブラリとして使用するプラグインは、plugin.ymlのdepend項目にNiflheimrを加えて下さい。
+また、本プラグインをライブラリとして使用するプラグインはplugin.ymlのdepend項目にNiflheimrを加えて下さい。
 
 ### 使用例
 ```Java
