@@ -10,7 +10,7 @@ public class GleamEnchantment extends Enchantment {
     public static final GleamEnchantment INSTANCE = new GleamEnchantment();
 
     private GleamEnchantment() {
-        super(NamespacedKey.minecraft("gleam"));
+        super(NamespacedKey.minecraft("niflheimr-gleam"));
     }
 
     @Override
